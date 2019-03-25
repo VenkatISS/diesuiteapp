@@ -7,7 +7,8 @@ public class ServiceMethodsMapProcessor {
 
 	private volatile static ServiceMethodsMapProcessor _instance;
 
-	private ServiceMethodsMapProcessor() {
+	private ServiceMethodsMapProcessor() {	
+		
 		
 	}
 
