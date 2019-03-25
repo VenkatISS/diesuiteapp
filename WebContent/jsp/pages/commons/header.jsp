@@ -106,8 +106,8 @@
             		
             		
                 	<ul class="dropdown-menu settings-menu">
-<!--                  		<li><a href="#prof" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/profile.jsp','9001')" class="namespacedropdown"><i class="fa fa-user fa-lg"></i>My Profile</a></li>
- -->                  		<li>
+                 		<li><a href="#prof" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/profile.jsp','9001')" class="namespacedropdown"><i class="fa fa-user fa-lg"></i>My Profile</a></li>
+                  		<li>
 	                  		<form id="logout_form" name="logout_form" action="<%=request.getContextPath() %>/login" method="post">
 								<input type="hidden" id="actionId" value="1000">
 								<input type="hidden" id="page" value="jsp/pages/app.jsp">

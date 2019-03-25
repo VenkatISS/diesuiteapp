@@ -10,6 +10,7 @@ function showRegistrationForm(){
 function showLoginForm() {
 	document.getElementById("registrationDiv").style.display="none";
 	document.getElementById("loginDiv").style.display="block";
+	document.getElementById("regform").disabled=true;
 	document.dealer_reg_form.reset();
 	//document.getElementById("successDiv").style.display="none";
 }

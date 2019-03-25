@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
  -->		<!--Password Masking-END -->
-		<title>LPG DEALER WEB APPLICATION - DEALER LOGIN</title>
+		<title>POWER DIESUITE WEB APPLICATION - USER LOGIN</title>
 		<jsp:useBean id="showDIV" scope="request" class="java.lang.String"></jsp:useBean>
 		<jsp:useBean id="showDIV1" scope="request" class="java.lang.String"></jsp:useBean>
 		
@@ -97,7 +97,7 @@
 					<input type="hidden" name="page" value="powerdie/home">
 	        		<h3 class="login-head"><img src="images/login_icon.png" alt="" title=""/> DIESUITE LOGIN</h3>
 	        		<div class="form-group">
-          			<select class="sform-control" id="adminoruser" name="adminoruser" onchange="regED()"> 
+          			CHOOSE:<select class="sform-control" id="adminoruser" name="adminoruser" onchange="regED()"> 
           			<option value="0">---select---</option>
           			<option value="1">user</option>
           			<option value="2">admin</option>
@@ -336,7 +336,7 @@ If you have any questions or concerns regarding this Agreement, please contact u
 		var selectedDropdownv=selectedDropdown.options[selectedDropdown.selectedIndex].value;
 		if(selectedDropdownv==2)
 			document.getElementById("regform").disabled=false;
-		else if(selectedDropdownv==1)
+		else if(selectedDropdownv==0 || selectedDropdownv==1)
 			document.getElementById("regform").disabled=true;
 	}
 	</script>

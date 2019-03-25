@@ -8,6 +8,106 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 
+/* NEW FOR DIESUITE 24032019 
+----------------------------------------*/
+
+.register-box {
+    width: 580px;
+	min-height: 520px !important;
+}
+
+
+body {
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    /* font-size: 14px; */
+    font-size: 9px;
+    line-height: 1.428571429;
+    color: #333;
+    background-color: #FFFFFF
+}
+
+/* sidenav.jsp */
+
+.main-sidebar {
+    background-color: #707070
+    }
+.alertsAndnews {
+	float:right;
+	background-color:#707070;
+	margin-top:-24px;
+	width:400px;
+	min-height:94vh;
+	max-height:94vh;
+	font-weight:bold;
+	padding:20px;
+}
+
+
+/* ends sidenav */
+
+.uform-control {
+   
+    margin-left: 15%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.44;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    transition: border-color ease-in-out 0.15s
+}
+.pform-control {
+   
+    margin-left: 9%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.44;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    transition: border-color ease-in-out 0.15s
+}
+.sform-control {
+   
+    margin-left: 13%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.44;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    transition: border-color ease-in-out 0.15s
+}
+
+.form-control {
+    display: block;
+    width: 50%;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.44;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    transition: border-color ease-in-out 0.15s
+}
+
+
+/* END FOR DIESUITE */
+
+
+
+
+
+
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -555,14 +655,7 @@ html {
     -webkit-tap-highlight-color: transparent
 }
 
-body {
-    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    /* font-size: 14px; */
-    font-size: 12px;
-    line-height: 1.428571429;
-    color: #333;
-    background-color: #edf1f5
-}
+
 
 input,
 button,
@@ -2378,61 +2471,6 @@ output {
     border-radius: 3px;
     transition: border-color ease-in-out 0.15s
 } */
-
-.uform-control {
-   
-    margin-left: 15%;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.44;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    transition: border-color ease-in-out 0.15s
-}
-.pform-control {
-   
-    margin-left: 9%;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.44;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    transition: border-color ease-in-out 0.15s
-}
-.sform-control {
-   
-    margin-left: 39%;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.44;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    transition: border-color ease-in-out 0.15s
-}
-
-.form-control {
-    display: block;
-    width: 50%;
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.44;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    transition: border-color ease-in-out 0.15s
-}
 
 .form-control:focus {
     border: 2px solid #2cbfca;
@@ -15043,9 +15081,6 @@ a.fc-more:hover {
     border-bottom: 0 solid transparent
 }
 
-.main-sidebar {
-    background-color: #0b5959
-}
 
 .user-panel>.info {
     color: #fff
@@ -16526,10 +16561,7 @@ a.fc-more:hover {
     transition: all 0.5s ease-in-out
 }
 
-.register-box {
-    width: 580px;
-	min-height: 600px !important;
-}
+
 
 .login-content .login-box .login-head {
     margin-top: 0;
@@ -17409,16 +17441,6 @@ td {
 	}
 }
 
-.alertsAndnews {
-	float:right;
-	background-color:#0b5959;
-	margin-top:-24px;
-	width:400px;
-	min-height:94vh;
-	max-height:94vh;
-	font-weight:bold;
-	padding:20px;
-}
 
 
 @media screen and (max-width: 1024px) {

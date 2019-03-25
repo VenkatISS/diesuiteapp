@@ -13,11 +13,12 @@
    	<!-- CSS-->
     <link rel="stylesheet" type="text/css" href="css/main.css?<%=randomUUIDString%>">
     <title>LPG DEALER ERP WEB APPLICATION - HOME PAGE</title>
-	 	<jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
+	
 	<script type="text/javascript" src="js/local.js?<%=randomUUIDString%>"></script>
     <script src="js/commons/jquery-2.1.4.min.js?<%=randomUUIDString%>"></script>
     <script type="text/javascript" src="js/home.js?<%=randomUUIDString%>"></script>
     <script type="text/javascript" src="js/commons/general_validations.js?<%=randomUUIDString%>"></script>
+	    <jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
 
 	<!-- SideNav-->
 	<jsp:include page="/jsp/pages/commons/sidenav.jsp"/>   
@@ -266,9 +267,10 @@ If you have any questions or concerns regarding this Agreement, please contact u
 		<script src="js/commons/bootstrap.min.js?<%=randomUUIDString%>"></script>
 		<script src="js/commons/plugins/pace.min.js?<%=randomUUIDString%>"></script>
     	<script src="js/commons/main.js?<%=randomUUIDString%>"></script>
-		<script type="text/javascript">
-		document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>;
-    	</script>
+    			<script type="text/javascript">
+    			document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>;
+    	    	</script>
+
     		</body>
 	<div id = "dialog-1" title="Alert(s)"></div>
 	<script type="text/javascript">
