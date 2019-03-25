@@ -8,6 +8,7 @@ public class ServiceMethodsMapProcessor {
 	private volatile static ServiceMethodsMapProcessor _instance;
 
 	private ServiceMethodsMapProcessor() {
+		
 	}
 
 	private Map<String, String> serviceBeanNamesMap = new HashMap<String, String>();
