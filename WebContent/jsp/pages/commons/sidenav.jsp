@@ -66,8 +66,6 @@
             	<li class="treeview mcls"><a href="#md"><i class="fa fa-dashboard"></i><span>MASTER DATA</span><i class="fa fa-angle-right"></i></a>
                 	<ul class="treeview-menu">
                  		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/statutory_data.jsp','3001')"><i class="fa fa-table"></i><b> STATUTORY MASTER</b></a></li>
-                 		                 		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/user_data.jsp','3001')"><i class="fa fa-table"></i><b> USER MASTER</b></a></li>
-                 		
 <!--                  		<li><a href="#pcd" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/product_category_data.jsp','3006')"><i class="fa fa-table"></i> PRODUCT CAT MASTER</a></li> -->
                   		<li class="treeview"><a href="#pmd"><i class="fa fa-product-hunt"></i><span>PRODUCT MASTER</span><i class="fa fa-angle-right"></i></a>
                       		<ul class="treeview-menu">
@@ -174,6 +172,47 @@
 		</form>
 	</section>
 </aside>
+
+
+
+ <div class="wrapper">
+<div class="row" style="background-image: url(images/bg13.jpg);">
+<div class="row row-in white-box hmwbox" style="/* margin-left: 16%; */margin-right: 0px;padding: 0px;height: 700px;">
+								
+								<div class = "alertsAndnews">
+		<nav class="navbar navbar-static-top">
+								
+								<!-- Sidebar toggle button start-->
+    		<!-- Sidebar toggle button end-->
+	    	 <a class="sidebar-toggle1 hdcpur headermenu headercp" style="font-size: 15px;" href="#cylpur" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/purchases/c_purchases.jsp','5101')" title="CYLINDER PURCHASES">
+	    		CP</a>
+			<a class="sidebar-toggle1 hdopur headermenu headerop" style="font-size: 15px;" href="#otrpur" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/purchases/other_purchases.jsp','5116')" title="OTHER PURCHASES">
+	    		OP</a>	    	
+			<a class="sidebar-toggle1 hddoms headermenu headerds" style="font-size: 15px;" href="#drs" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/sales/dom_refill_sales.jsp','5121')" title="DOMESTIC CYLINDER SALES">
+				DS</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#crs" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/sales/com_refill_sales.jsp','5126')" title="COMERCIAL CYLINDER SALES">
+				CS</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#dc" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/sales/delivery_challan.jsp','5151')" title="DELIVERY CHALLAN">
+				DC</a>	
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#ncdbc" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/ncordbc/nc_dbc.jsp','5721')" title="NC/DBC">
+				NC</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#rectn" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/ncordbc/rc.jsp','5711')" title="ITV/RC">
+				RC</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#tvochr" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/ncordbc/tv.jsp','5701')" title="OTV/TTV/TV">
+				TV</a>			
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#rcpts" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/cash&bank/receipts.jsp','5501')" title="RECEIPTS">
+				RT</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#btrans" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/cash&bank/payments.jsp','5511')" title="PAYMENTS">
+				PT</a>
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#btrans" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/cash&bank/bank_tranxs.jsp','5521')" title="BANK TRANSACTIONS">
+				BT</a>	
+			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#cvo" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/cv_data.jsp','3501')" title="CUSTOMER/VENDOR MASTER">
+				CVO</a> 
+				</nav>	
+								</div>
+							</div>
+							</div>
+							</div>
 
 <script type="text/javascript" src="js/commons/sckeys.js?<%=randomUUIDString%>"></script>
 
