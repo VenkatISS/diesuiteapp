@@ -18,18 +18,18 @@ public class MasterDataPersistenceManager {
 
 	Logger logger = Logger.getLogger(MasterDataPersistenceManager.class.getName());
 
-	public List<UserDetailsDO> getAdminUserData(long agencyId) throws BusinessException {
+	public List<UserDetailsDO> getAdminUserData(long userId) throws BusinessException {
 		List<UserDetailsDO> doList = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			@SuppressWarnings("unchecked")
-			Query<UserDetailsDO> query = session.createQuery("from UserDetailsDO where created_by = ?1 and deleted = ?2");
-			query.setParameter(1, agencyId);
+			Query<UserDetailsDO> query = session.createQuery("from UserDetailsDO where userId = ?1 and deleted = ?2");
+			query.setParameter(1, userId);
 			query.setParameter(2, 0);
 			List<UserDetailsDO> result = query.getResultList(); 
 			if(result.size()>0) {
-				for (UserDetailsDO statutoryDataDO : result) {
-					doList.add(statutoryDataDO);
+				for (UserDetailsDO userDataDO : result) {
+					doList.add(userDataDO);
 				}
 			} 
 		}catch(Exception e) {

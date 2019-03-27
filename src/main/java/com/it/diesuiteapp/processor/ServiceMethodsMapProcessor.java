@@ -75,11 +75,11 @@ public class ServiceMethodsMapProcessor {
 		serviceBeanMethodsNamesMap.put("3000", "showMasterData");
 
 		//Master Data - Top Level user creation
-		serviceBeanNamesMap.put("3001", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3001", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3001", "fetchAdminUserData");
-		serviceBeanNamesMap.put("3002", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3002", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3002", "saveAdminUserData");
-		serviceBeanNamesMap.put("3003", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3003", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3003", "deleteAdminUserData");
 		
 		serviceBeanNamesMap.put("3006", "com.it.erpapp.appservices.MasterDataServiceBean");

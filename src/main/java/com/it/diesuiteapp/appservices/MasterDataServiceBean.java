@@ -1,7 +1,6 @@
 package com.it.diesuiteapp.appservices;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.it.diesuiteapp.commons.ApplicationConstants;
-import com.it.diesuiteapp.framework.CacheFactory;
 import com.it.diesuiteapp.framework.MasterDataFactory;
 import com.it.diesuiteapp.framework.model.AdminDO;
 import com.it.diesuiteapp.response.MessageObject;
@@ -44,12 +42,9 @@ public class MasterDataServiceBean {
 	public void fetchAdminUserData(HttpServletRequest request,
 			HttpServletResponse response){
 		MessageObject msgObj = new MessageObject(3001, "FETCH USER DATA", ApplicationConstants.ERROR_STATUS_STRING);
-		HttpSession session = null;
+		//HttpSession session = null;
 		try {
-			AdminDO doObj = (AdminDO) session.getAttribute("adminDO");
-
-			//adminId=request.getSession().getAttribute("adminDO").getAdminId();
-				adminId = doObj.getAdminId();
+			adminId = ((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId();
 
 				logger.info(ApplicationConstants.LogMessageKeys.FETCHSTATUTORYDATA.getValue()
 						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()

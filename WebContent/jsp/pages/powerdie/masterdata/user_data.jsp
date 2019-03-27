@@ -58,7 +58,7 @@
               					<form id="user_data_form" name="" method="post" action="MasterDataControlServlet">
 									<input type="hidden" id="adminId" name="adminId" value="<%= adminDO.getAdminId() %>">
 									<input type="hidden" id="page" name="page" value="jsp/pages/powerdie/masterdata/user_data.jsp">
-									<input type="hidden" id="actionId" name="actionId" value="3542">
+									<input type="hidden" id="actionId" name="actionId" value="3002">
 									<input type="hidden" id="userDataId" name="userDataId" value="">
                						<table class="table" id="user_add_table">
                   						<thead>

@@ -65,7 +65,9 @@
             	<li class="active mcls"><a href="#hom" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/home.jsp','2001')" class = "tabhome"><i class="fa fa-home"></i><span >HOME</span></a></li>
             	<li class="treeview mcls"><a href="#md"><i class="fa fa-dashboard"></i><span>MASTER DATA</span><i class="fa fa-angle-right"></i></a>
                 	<ul class="treeview-menu">
-                 		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/statutory_data.jsp','3001')"><i class="fa fa-table"></i><b> STATUTORY MASTER</b></a></li>
+<!--                  		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/statutory_data.jsp','3001')"><i class="fa fa-table"></i><b> STATUTORY MASTER</b></a></li>
+ -->                 	<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/user_data.jsp','3001')"><i class="fa fa-table"></i><b> USER MASTER</b></a></li>
+                 		
 <!--                  		<li><a href="#pcd" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/product_category_data.jsp','3006')"><i class="fa fa-table"></i> PRODUCT CAT MASTER</a></li> -->
                   		<li class="treeview"><a href="#pmd"><i class="fa fa-product-hunt"></i><span>PRODUCT MASTER</span><i class="fa fa-angle-right"></i></a>
                       		<ul class="treeview-menu">

@@ -67,6 +67,7 @@
     	<div class="wrapper">
       		<!-- Header-->
 			<jsp:include page="/jsp/pages/commons/header.jsp"/>
+			
 				
 		 			<div id="home_div" style="">
 						<div class="row" style="background-image: url(images/bg13.jpg);">
