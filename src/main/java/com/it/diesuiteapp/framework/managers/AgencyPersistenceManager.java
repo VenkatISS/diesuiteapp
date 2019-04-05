@@ -343,9 +343,9 @@ public class AgencyPersistenceManager {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			@SuppressWarnings("unchecked")
-			Query<UserDetailsDO> query = session.createQuery("from AdminDO where agencyCode = ?1 and passCode = ?2 and status = ?3 ");
+			Query<UserDetailsDO> query = session.createQuery("from UserDetailsDO where USER_ID = ?1 and passCode = ?2 and status = ?3 ");
 			query.setParameter(1, agencyId);
-			query.setParameter(2, PasswordUtil.encryptPasscode(pwd));
+			query.setParameter(2,pwd);
 			query.setParameter(3, 1);
 			List<UserDetailsDO> result = query.getResultList(); 
 			if(result.size()==1) {

@@ -76,20 +76,19 @@ public class MasterDataServiceBean {
 		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
 
-	public void saveAgencyUserData(HttpServletRequest request, HttpServletResponse response){
+	public void saveAdminUserData(HttpServletRequest request, HttpServletResponse response){
 		
 		MessageObject msgObj = new MessageObject(3002, "SAVE STATUTORY DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
 			adminId = Long.parseLong(request.getParameter("adminId"));
 			
-			adminId = Long.parseLong(request.getParameter("agencyId"));
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEAGENCYSTATUTORYDATA.getValue()
 					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
 
 			Map<String, String[]> requestParams = request.getParameterMap();
 			MasterDataFactory mdf = new MasterDataFactory();
-			request.setAttribute("statutory_data", (new Gson().toJson(mdf.saveAdminUserData(requestParams, adminId))));
+			request.setAttribute("user_data", (new Gson().toJson(mdf.saveAdminUserData(requestParams, adminId))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEAGENCYSTATUTORYDATA.getValue()
 					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
@@ -149,6 +148,126 @@ public class MasterDataServiceBean {
 		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
 
+	
+	//CVO Data Methods
+		public void fetchCVOData(HttpServletRequest request,
+				HttpServletResponse response){
+			MessageObject msgObj = new MessageObject(3501, "FETCH CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
+			try {
+				
+				 adminId = ((AdminDO) request.getSession().getAttribute("adminDO")).getAdminId();
+
+					logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
+							+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+		    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
+
+				HttpSession session = request.getSession(true);
+				MasterDataFactory mdf = new MasterDataFactory();
+//				if( (null == session.getAttribute("cvo_data")) ) {
+				session.setAttribute("cvo_data", (new Gson().toJson(
+						mdf.getAdminCVOData(((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId()))));
+//				}
+				request.setAttribute("dcvo_data", (new Gson().toJson(
+						mdf.getAdminAllCVOData(((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId()))));
+				
+				msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
+				logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
+						adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
+
+			}catch(BusinessException be) {
+				msgObj.setMessageText(be.getExceptionMessage());
+				
+				logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
+						adminId,be);
+
+			}
+			request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
+		}
+
+		public void saveCVOData(HttpServletRequest request, HttpServletResponse response){
+			
+			MessageObject msgObj = new MessageObject(3502, "SAVE CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
+			try {
+				adminId = Long.parseLong(request.getParameter("agencyId"));
+				//String effdate = request.getParameter("effDateInFTL");
+				
+				logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
+
+				Map<String, String[]> requestParams = request.getParameterMap();
+
+				MasterDataFactory mdf = new MasterDataFactory();
+				request.getSession().setAttribute("cvo_data", (new Gson().toJson(mdf.saveAdminCVOData(requestParams, adminId))));
+				request.setAttribute("dcvo_data", (new Gson().toJson(
+						mdf.getAdminCVOData(((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId()))));
+								msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
+				logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
+						adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
+
+			}catch(BusinessException be){
+				msgObj.setMessageText(be.getExceptionMessage());
+				
+				logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
+						adminId,be);
+
+			}
+			request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
+		}
+
+		public void deleteCVOData(HttpServletRequest request, HttpServletResponse response){
+			
+			MessageObject msgObj = new MessageObject(3503, "DELETE CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
+			try {
+				
+				adminId = Long.parseLong(request.getParameter("agencyId"));
+				cvoId = Long.parseLong(request.getParameter("dataId"));
+				
+				logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
+						adminId,cvoId);
+
+				
+				MasterDataFactory mdf = new MasterDataFactory();
+				request.getSession().setAttribute("cvo_data", (new Gson().toJson(mdf.deleteAgencyCVOData(cvoId,adminId))));
+				request.setAttribute("dcvo_data", (new Gson().toJson(
+						mdf.getAdminAllCVOData(((AdminDO)request.getSession().getAttribute("agencyVO")).getAdminId()))));			
+				msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
+				logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
+						+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.STATUS.toString()
+						+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,cvoId,
+						ApplicationConstants.SUCCESS_STATUS_STRING);
+
+			}catch(BusinessException be){
+				msgObj.setMessageText(be.getExceptionMessage());
+				
+				logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
+						+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
+						+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()
+						+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,cvoId,be);
+
+			}
+			request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
+		}
 	/*//Staff Data Methods
 	public void fetchStaffData(HttpServletRequest request,
 			HttpServletResponse response){
@@ -357,125 +476,7 @@ public class MasterDataServiceBean {
 		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
 
-	//CVO Data Methods
-	public void fetchCVOData(HttpServletRequest request,
-			HttpServletResponse response){
-		MessageObject msgObj = new MessageObject(3501, "FETCH CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
-		try {
-			
-			 agencyId = ((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code();
-
-				logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
-						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
-
-			HttpSession session = request.getSession(true);
-			MasterDataFactory mdf = new MasterDataFactory();
-//			if( (null == session.getAttribute("cvo_data")) ) {
-			session.setAttribute("cvo_data", (new Gson().toJson(
-					mdf.getAgencyCVOData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));
-//			}
-			request.setAttribute("dcvo_data", (new Gson().toJson(
-					mdf.getAgencyAllCVOData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));
-			
-			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
-			logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
-
-		}catch(BusinessException be) {
-			msgObj.setMessageText(be.getExceptionMessage());
-			
-			logger.info(ApplicationConstants.LogMessageKeys.FETCHCVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
-
-		}
-		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
-	}
-
-	public void saveCVOData(HttpServletRequest request, HttpServletResponse response){
-		
-		MessageObject msgObj = new MessageObject(3502, "SAVE CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
-		try {
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
-			String effdate = request.getParameter("effDateInFTL");
-			
-			logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
-
-			Map<String, String[]> requestParams = request.getParameterMap();
-
-			MasterDataFactory mdf = new MasterDataFactory();
-			request.getSession().setAttribute("cvo_data", (new Gson().toJson(mdf.saveAgencyCVOData(requestParams, agencyId, effdate))));
-			request.setAttribute("dcvo_data", (new Gson().toJson(
-					mdf.getAgencyAllCVOData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));
-			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
-			logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
-
-		}catch(BusinessException be){
-			msgObj.setMessageText(be.getExceptionMessage());
-			
-			logger.info(ApplicationConstants.LogMessageKeys.SAVECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
-
-		}
-		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
-	}
-
-	public void deleteCVOData(HttpServletRequest request, HttpServletResponse response){
-		
-		MessageObject msgObj = new MessageObject(3503, "DELETE CVO DATA", ApplicationConstants.ERROR_STATUS_STRING);
-		try {
-			
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
-			cvoId = Long.parseLong(request.getParameter("dataId"));
-			
-			logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
-					agencyId,cvoId);
-
-			
-			MasterDataFactory mdf = new MasterDataFactory();
-			request.getSession().setAttribute("cvo_data", (new Gson().toJson(mdf.deleteAgencyCVOData(cvoId,agencyId))));
-			request.setAttribute("dcvo_data", (new Gson().toJson(
-					mdf.getAgencyAllCVOData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));			
-			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
-			logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
-					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.STATUS.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,cvoId,
-					ApplicationConstants.SUCCESS_STATUS_STRING);
-
-		}catch(BusinessException be){
-			msgObj.setMessageText(be.getExceptionMessage());
-			
-			logger.info(ApplicationConstants.LogMessageKeys.DELETECVODATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
-					+ApplicationConstants.paramKeys.CVOID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
-					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,cvoId,be);
-
-		}
-		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
-	}
+	
 
 	//Bank Data Methods
 	public void fetchBankData(HttpServletRequest request,

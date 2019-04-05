@@ -22,7 +22,7 @@ public class UserDetailsDO {
 	@Column(name = "USER_ADDRESS", nullable = false)
 	private String userAddress;
 	@Column(name = "USER_MOBILE", nullable = false)
-	private String usetrMobile;
+	private String userMobile;
 	@Column(name = "CREATED_BY", nullable = true)
 	private long createdBy;
 	@Column(name = "CREATED_DATE", nullable = false)
@@ -87,11 +87,11 @@ public class UserDetailsDO {
 	}
 
 	public String getUsetrMobile() {
-		return usetrMobile;
+		return userMobile;
 	}
 
 	public void setUsetrMobile(String usetrMobile) {
-		this.usetrMobile = usetrMobile;
+		this.userMobile = usetrMobile;
 	}
 
 	public long getCreatedBy() {

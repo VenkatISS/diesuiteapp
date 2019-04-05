@@ -12,6 +12,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import com.it.diesuiteapp.framework.model.AccountActivationDO;
 import com.it.diesuiteapp.framework.model.AdminDO;
 import com.it.diesuiteapp.framework.model.AdminDetailsDO;
+import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.CVODataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 
 
@@ -54,8 +56,9 @@ public class HibernateUtil {
 								.addAnnotatedClass(AdminDO.class)
 								.addAnnotatedClass(AdminDetailsDO.class)
 								.addAnnotatedClass(AccountActivationDO.class)
-								.addAnnotatedClass(UserDetailsDO.class);
-
+								.addAnnotatedClass(UserDetailsDO.class)
+								.addAnnotatedClass(CVODataDO.class)
+								.addAnnotatedClass(AgencyCVOBalanceDataDO.class);
 
 						// Create Metadata
 						Metadata metadata = sources.getMetadataBuilder().build();

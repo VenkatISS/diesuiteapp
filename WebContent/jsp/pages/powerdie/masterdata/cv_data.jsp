@@ -12,7 +12,7 @@
     <!-- CSS-->
     <link rel="stylesheet" type="text/css" href="css/main.css?<%=randomUUIDString%>">
     <title>LPG DEALER ERP WEB APPLICATION - CUSTOMER/VENDOR MASTER</title>
-    <jsp:useBean id="agencyVO" scope="session" class="com.it.diesuiteapp.framework.model.vos.AgencyVO"></jsp:useBean>
+    <jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
 	<jsp:useBean id="cvo_data" scope="session" class="java.lang.String"></jsp:useBean>
 	<jsp:useBean id="dcvo_data" scope="request" class="java.lang.String"></jsp:useBean>
 
@@ -54,12 +54,12 @@
             	<div class="main_table">
               		<div class="table-responsive">
              	 		<form id="cvo_data_form" name="" method="post" action="MasterDataControlServlet">
-			  				<input type="hidden" id="agencyId" name="agencyId" value="<%= agencyVO.getAgency_code() %>">
-							<input type="hidden" id="page" name="page" value="jsp/pages/erp/masterdata/cv_data.jsp">
+			  				<input type="hidden" id="agencyId" name="agencyId" value="<%= adminDO.getAdminId() %>">
+							<input type="hidden" id="page" name="page" value="jsp/pages/powerdie/masterdata/cv_data.jsp">
 							<input type="hidden" id="actionId" name="actionId" value="3502">
 							<input type="hidden" id="dataId" name="dataId" value="">
-			  				<input type="hidden" id="effDateInFTL" name="effDateInFTL" value="<%= agencyVO.getEffective_date() %>">
-              				
+<%-- 			  				<input type="hidden" id="effDateInFTL" name="effDateInFTL" value="<%= agencyVO.getEffective_date() %>">
+ --%>              				
               				<table class="table" id="cvo_add_table">
                   				<thead>
                     				<tr class="title_head">
@@ -125,15 +125,14 @@
     <script type="text/javascript">
      	var cvo_data =  <%= cvo_data.length()>0? cvo_data : "[]" %>;
      	var dcvo_data =  <%= dcvo_data.length()>0? dcvo_data : "[]" %>;
-     	var agency_oc = <%= agencyVO.getAgency_oc() %>;
      	var omc_name;
 		
-     	if(agency_oc==1)
+     /* 	if(agency_oc==1)
 			omc_name = "IOCL";
 		else if(agency_oc==2)
 			omc_name = "HPCL";
 		else if(agency_oc==3)
-			omc_name = "BPCL";
+			omc_name = "BPCL"; */
 		
     	var categories = ["VENDOR","CUSTOMER","OMC-"+omc_name,"OTHERS"];
      	var gstyn = ["SELECT","YES","NO"];
@@ -144,8 +143,8 @@
 	<script src="js/commons/plugins/pace.min.js?<%=randomUUIDString%>"></script>
     <script src="js/commons/main.js?<%=randomUUIDString%>"></script>
     <script>
-    document.getElementById("nameSpan").innerHTML = <%= agencyVO.getAgency_code() %>
-    document.getElementById('cvo_data_form').agencyId = <%= agencyVO.getAgency_code() %>;
+    document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>
+    document.getElementById('cvo_data_form').agencyId = <%= adminDO.getAdminId() %>;
     
 	$(document).ready(function() {
     	/* tooltip for select */

@@ -1,16 +1,15 @@
-var tbody = document.getElementById('staff_data_table_body');
-for(var f=staff_data.length-1; f>=0; f--){
+var tbody = document.getElementById('user_data_table_body');
+for(var f=user_data.length-1; f>=0; f--){
    var tblRow = tbody.insertRow(-1);
-   var dob = new Date(staff_data[f].dob);
    tblRow.style.height="20px";
    tblRow.align="left";
-   tblRow.innerHTML = '<td>' + staff_data[f].emp_code +'</td>'+
-   		'<td>'+ staff_data[f].emp_name +'</td>'+
- 		'<td>'+ dob.toLocaleDateString() + '</td>'+
-   		/*'<td>'+ staff_data[f].dob + '</td>'+*/
-   		'<td>'+ staff_data[f].designation + '</td>'+
-   		'<td>'+ roles[staff_data[f].role] +'</td>'+
-   		'<td valign="top" height="4" align="center"><img src="images/delete.png" class="fa fa-trash-o" onclick="deleteItem('+staff_data[f].id+')"></td>'	   
+   tblRow.innerHTML = '<td>' + user_data[f].userId +'</td>'+
+   		'<td>'+ user_data[f].userName +'</td>'+
+   		'<td>'+ user_data[f].passCode + '</td>'+
+   		'<td>'+ user_data[f].userMobile + '</td>'+
+   		'<td>'+ user_data[f].userEmail + '</td>'+
+   		'<td>'+ user_data[f].userAddress + '</td>'+
+   		'<td valign="top" height="4" align="center"><img src="images/delete.png" class="fa fa-trash-o" onclick="deleteItem('+user_data[f].id+')"></td>'	   
 };
  
 function addRow() {
@@ -18,9 +17,9 @@ function addRow() {
 	document.getElementById('savediv').style.display="inline";
     $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
 
-    var trcount = document.getElementById('staff_add_table_body').getElementsByTagName('tr').length;
+    var trcount = document.getElementById('user_add_table_body').getElementsByTagName('tr').length;
     if(trcount>0){
-    	var trv=document.getElementById('staff_add_table_body').getElementsByTagName('tr')[trcount-1];
+    	var trv=document.getElementById('user_add_table_body').getElementsByTagName('tr')[trcount-1];
     	var saddv=trv.getElementsByClassName('sadd');
     	var eaddv=trv.getElementsByClassName('eadd');
     
@@ -33,7 +32,7 @@ function addRow() {
     	}		
     }
 
-	var ele = document.getElementsByClassName("sdc");
+	var ele = document.getElementsByClassName("udc");
 	if(ele.length < 4){
 		var tbody = document.getElementById('user_add_table_body');
 		var newRow = tbody.insertRow(-1);
@@ -44,20 +43,17 @@ function addRow() {
 		var d = newRow.insertCell(3);
 		var e = newRow.insertCell(4);
 		var f = newRow.insertCell(5);
+		var g = newRow.insertCell(6);
 
-		a.innerHTML = "<td><INPUT TYPE=text NAME='s_code' ID='u_code' class='form-control input_field sdc eadd' size='8' maxlength='6' placeholder='Emp Code'></td>";
-		b.innerHTML = "<td><INPUT TYPE=text NAME='s_name' ID='u_name' class='form-control input_field eadd' size='8' maxlength='30' placeholder='Emp Name'></td>";
-		c.innerHTML = "<td><INPUT TYPE=date NAME='s_dob' ID='u_dob' class='form-control input_field eadd' size='8' placeholder='yyyy/mm/dd' ></td>";
-		d.innerHTML = "<td><INPUT TYPE=text NAME='s_designation' ID='s_designation' class='form-control input_field eadd' size='8' maxlength='15' placeholder='Designation'></td>";
-		e.innerHTML = "<td><SELECT NAME='s_role' ID='s_role'  class='form-control input_field select_dropdown sadd'>"
-				+ "<OPTION VALUE='-1'>SELECT</OPTION>"
-				+ "<OPTION VALUE='0'>DELIVERY STAFF</OPTION>"
-				+ "<OPTION VALUE='1'>SHOWROOM STAFF</OPTION>"
-				+ "<OPTION VALUE='2'>GODOWN STAFF</OPTION>"
-				+ "<OPTION VALUE='3'>INSPECTOR</OPTION>"
-				+ "<OPTION VALUE='4'>MECHANIC</OPTION>"
-				+ "<OPTION VALUE='5'>OTHERS</OPTION>" + "</SELECT></td>";
-		f.innerHTML = "<td><img src='images/delete.png' onclick='doRowDelete(this)'></td>";
+
+		a.innerHTML = "<td><INPUT TYPE=text NAME='u_code' ID='u_code' class='form-control input_field udc eadd' size='8' maxlength='6' placeholder='User Id'></td>";
+		b.innerHTML = "<td><INPUT TYPE=text NAME='u_name' ID='u_name' class='form-control input_field eadd' size='8' maxlength='30' placeholder='User Name'></td>";
+		c.innerHTML = "<td><INPUT TYPE=password NAME='u_pwd' ID='u_pwd' class='form-control input_field eadd' size='8' maxlength='8' placeholder='User Password'></td>";
+		d.innerHTML = "<td><INPUT TYPE=text NAME='u_mobile' ID='u_mobile' class='form-control input_field eadd' size='8' maxlength='10' placeholder='User Mobile'></td>";
+		e.innerHTML = "<td><INPUT TYPE=text NAME='u_email' ID='u_email' class='form-control input_field eadd' size='8' maxlength='30' placeholder='User Email'></td>";
+		f.innerHTML = "<td><INPUT TYPE=text NAME='u_address' ID='u_address' class='form-control input_field eadd' size='8' maxlength='30' placeholder='User Address'></td>";
+
+		g.innerHTML = "<td><img src='images/delete.png' onclick='doRowDelete(this)'></td>";
 	}else{
 		document.getElementById("dialog-1").innerHTML = "Please Save the Records and ADD Again";
 		alertdialogue();
@@ -66,29 +62,31 @@ function addRow() {
 }
 
 function saveData(obj) {
-	var formobj = document.getElementById('staff_data_form');
+	var formobj = document.getElementById('user_data_form');
 	var ems = "";
 
-	if (document.getElementById("s_code") != null) {
+	if (document.getElementById("u_code") != null) {
 
-		var elements = document.getElementsByClassName("sdc");
+		var elements = document.getElementsByClassName("udc");
 		if (elements.length == 1) {
-			var escode = formobj.s_code.value.trim();
-			var esname = formobj.s_name.value.trim();
-			var esdob = formobj.s_dob.value.trim();
-			var esdesig = formobj.s_designation.value.trim();
-			var esrole = formobj.s_role.selectedIndex;
+			var eucode = formobj.u_code.value.trim();
+			var euname = formobj.u_name.value.trim();
+			var eumobile = formobj.u_mobile.value.trim();
+			var euemail = formobj.u_email.value.trim();
+			var eupwd = formobj.u_pwd.value.trim();
+			var euadds = formobj.u_address.value.trim();
 
-			ems = validateSDEntries(escode, esname, esdob, esdesig, esrole);
+			ems = validateSDEntries(eucode, euname, eumobile, euemail, eupwd,euadds);
 		} else if (elements.length > 1) {
 			for (var i = 0; i < elements.length; i++) {
-				var escode = formobj.s_code[i].value.trim();
-				var esname = formobj.s_name[i].value.trim();
-				var esdob = formobj.s_dob[i].value.trim();
-				var esdesig = formobj.s_designation[i].value.trim();
-				var esrole = formobj.s_role[i].selectedIndex;
+				var eucode = formobj.u_code[i].value.trim();
+				var euname = formobj.u_name[i].value.trim();
+				var euemail = formobj.u_email[i].value.trim();
+				var eumobile = formobj.u_mobile[i].value.trim();
+				var eupwd = formobj.u_pwd[i].value.trim();
+				var euadds = formobj.u_address[i].value.trim();
 
-				ems = validateSDEntries(escode, esname, esdob, esdesig, esrole);
+				ems = validateSDEntries(eucode,euname,eumobile, euemail,eupwd, euadds);
 				if (ems.length > 0)
 					break;
 			}
@@ -112,51 +110,49 @@ function saveData(obj) {
 	formobj.submit();
 }
 
-/*function deleteItem(staffDataId) {
-
-	if (confirm("Are you sure you want to delete?") == true) {
-		var formobj = document.getElementById('staff_data_form');
-		formobj.actionId.value = "3543";
-		formobj.staffDataId.value = staffDataId;
-		formobj.submit();
-	}
-}*/
 function deleteItem(id){
 	 $("#myDialogText").text("Are You Sure You Want To Delete?");
-	 var formobj = document.getElementById('staff_data_form');
+	 var formobj = document.getElementById('user_data_form');
 	 confirmDialogue(formobj,3543,id);
 }
 
-function validateSDEntries(code, name, dob, designation, role) {
+function validateSDEntries(code,name,mobile,email,pwd,address) {
 	var errmsg = "";
 
-	for(var f=0; f<staff_data.length; f++){
-		   var scode =staff_data[f].emp_code;
-		   if(scode==code)
-				errmsg = "EMPLOYEE CODE already exist.Please enter different EMPLOYEE CODE<br>";
+	for(var f=0; f<user_data.length; f++){
+		   var ucode =user_data[f].adminId;
+		   if(ucode==code)
+				errmsg = "USER ID already exist.Please enter different USER ID<br>";
 			   }
 	
 	if (!(code.length > 0))
-		errmsg = "Please enter EMPLOYEE CODE<br>";
+		errmsg = "Please enter USER ID<br>";
 	else if (validateDot(code))
-		errmsg = errmsg + "Please Enter Valid EMPLOYEE CODE.<br>";
+		errmsg = errmsg + "Please Enter Valid USER ID.<br>";
 
 	if (!(name.length > 0))
 		errmsg = errmsg + "Please Enter NAME.<br>";
 	else if (!(IsNameSpaceDot(name)))
 		errmsg = errmsg + "Please Enter Valid NAME.<br>";
-
-	var vfd = ValidateFutureDate(dob);
-	if (!(dob.length > 0))
-		errmsg = errmsg + "Please Enter DATE OF BIRTH.<br>";
-	else if (vfd != "false")
-		errmsg = errmsg +vfd+"<br>";
+	
+	if ((mobile != "")) {
+		if (!(checkNumber(mobile)))
+			errmsg = errmsg + "MOBILE NUMBER Must Contain Only Digits. <br>";
+		else if (!(mobile.length == 10))
+			errmsg = errmsg + "MOBILE NUMBER Must Contain 10 Digits. <br>";
+	}
+	
+	if ((email == ""))
+		errmsg = errmsg + "Please Enter EMAIL ID<br>";
+	else if (!checkEmail(email))
+		errmsg = errmsg + "Please Enter valid EMAIL ID<br>";
+	
 		
-	if (!(designation.length > 0))
-		errmsg = errmsg + "Please Enter Designation. <br>";
+	if (!(pwd.length > 0))
+		errmsg = errmsg + "Please Enter PASSWORD. <br>";
 
-	if (!(role > 0))
-		errmsg = errmsg + "Please Select Role <br>";
+	if (!(address.length > 0))
+		errmsg = errmsg + "Please Enter Address <br>";
 
 	return errmsg;
 }

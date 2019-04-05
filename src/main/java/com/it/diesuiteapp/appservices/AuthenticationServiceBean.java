@@ -59,7 +59,7 @@ public class AuthenticationServiceBean {
 						adminId,ApplicationConstants.actionStatusKeys.FIRSTLOGIN.toString());
 
 			}*/
-			if(admindo.getStatus()==1) {
+			if(admindo!=null && admindo.getStatus()==1) {
 				msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 				
 				logger.info(ApplicationConstants.LogMessageKeys.VALIDATE_DEALER_LOGIN.getValue()
@@ -72,7 +72,7 @@ public class AuthenticationServiceBean {
 
 			}
 			else {
-				if(userdo.getStatus()==1) {
+				if(userdo!=null && userdo.getStatus()==1) {
 					msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 					
 					logger.info(ApplicationConstants.LogMessageKeys.VALIDATE_DEALER_LOGIN.getValue()

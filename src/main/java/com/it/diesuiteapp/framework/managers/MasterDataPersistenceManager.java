@@ -2,7 +2,9 @@ package com.it.diesuiteapp.framework.managers;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -10,6 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.CVODataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 import com.it.diesuiteapp.systemservices.exceptions.BusinessException;
 import com.it.diesuiteapp.utils.HibernateUtil;
@@ -18,15 +22,16 @@ public class MasterDataPersistenceManager {
 
 	Logger logger = Logger.getLogger(MasterDataPersistenceManager.class.getName());
 
-	public List<UserDetailsDO> getAdminUserData(long userId) throws BusinessException {
+	public List<UserDetailsDO> getAdminUserData(long adminId) throws BusinessException {
 		List<UserDetailsDO> doList = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			@SuppressWarnings("unchecked")
-			Query<UserDetailsDO> query = session.createQuery("from UserDetailsDO where userId = ?1 and deleted = ?2");
-			query.setParameter(1, userId);
+			Query<UserDetailsDO> query = session.createQuery("from UserDetailsDO where createdBy = ?1 and deleted = ?2");
+			query.setParameter(1, adminId);
 			query.setParameter(2, 0);
 			List<UserDetailsDO> result = query.getResultList(); 
+			System.out.println("result is:"+result);
 			if(result.size()>0) {
 				for (UserDetailsDO userDataDO : result) {
 					doList.add(userDataDO);
@@ -48,8 +53,8 @@ public class MasterDataPersistenceManager {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			for (UserDetailsDO statutoryDataDO : doList) {
-				session.save(statutoryDataDO);
+			for (UserDetailsDO userDataDO : doList) {
+				session.save(userDataDO);
 			}
 			tx.commit();
 		}catch(Exception e) {
@@ -91,6 +96,155 @@ public class MasterDataPersistenceManager {
 			session.close();
 		}
 	}
+	
+	//CVO Data
+		public List<CVODataDO> getAdminCVOData(long agencyId) throws BusinessException {
+			List<CVODataDO> doList = new ArrayList<>();
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			try {
+				@SuppressWarnings("unchecked")
+				Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1 and deleted = ?2 ");
+				query.setParameter(1, agencyId);
+				query.setParameter(2, 0);
+				List<CVODataDO> result = query.getResultList(); 
+				if(result.size()>0) {
+					for (CVODataDO cvodo : result) {
+						doList.add(cvodo);
+					}
+				} 
+			}catch(Exception e) {
+				e.printStackTrace();
+				logger.error(e);
+				throw new BusinessException(e.getMessage());
+			}finally {
+				session.clear();
+				session.close();
+			}
+			return doList;
+		}
+		
+		//CVO Data
+			public List<CVODataDO> getAdminAllCVOData(long agencyId) throws BusinessException {
+				List<CVODataDO> doList = new ArrayList<>();
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				try {
+					@SuppressWarnings("unchecked")
+					Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1");
+					query.setParameter(1, agencyId);
+					List<CVODataDO> result = query.getResultList(); 
+					if(result.size()>0) {
+						for (CVODataDO cvodo : result) {
+							doList.add(cvodo);
+						}
+					} 
+				}catch(Exception e) {
+					logger.error(e);
+					e.printStackTrace();
+					throw new BusinessException(e.getMessage());
+				}finally {
+					session.clear();
+					session.close();
+				}
+				return doList;
+			}
+
+			@SuppressWarnings("unchecked")
+			public void saveAdminCVOData(List<CVODataDO> doList,
+					List<AgencyCVOBalanceDataDO> acvoDOList) throws BusinessException {
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				Transaction tx = null;
+				try {
+					tx = session.beginTransaction();
+		            List<Long> list = new ArrayList<>();
+		            Map<Long,Integer> map =new HashMap<>();
+		            
+					for (CVODataDO cvodo : doList) {
+						if(cvodo.getIs_gst_reg()==1){
+							String gstin = cvodo.getCvo_tin();
+							Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1 and deleted = ?2 and cvo_tin="+"'"+gstin+"'");
+							query.setParameter(1, cvodo.getCreated_by());
+							query.setParameter(2, 1);
+							List<CVODataDO> result = query.getResultList(); 
+							if(result.size()>0) {
+								for (CVODataDO cvodo2 : result) {
+									if((cvodo.getCvo_tin()).equalsIgnoreCase((cvodo2.getCvo_tin()))){
+										session.clear();
+										cvodo.setId(cvodo2.getId());
+										cvodo.setDeleted(0);
+										cvodo.setCreated_date(System.currentTimeMillis());
+										session.update(cvodo);
+
+										map.put(cvodo.getId(), 1);
+			                            list.add(cvodo.getId());
+										
+									}else{
+										list.add((Long) session.save(cvodo));
+			                            map.put(cvodo.getId(), 0);
+									}
+								}
+							}else{
+								list.add((Long) session.save(cvodo));
+			                    map.put(cvodo.getId(), 0);
+							}
+						}else{
+							list.add((Long) session.save(cvodo));
+		                    map.put(cvodo.getId(), 0);
+						}
+					}
+					
+					int count=0;
+					for (AgencyCVOBalanceDataDO cvobaldo : acvoDOList) {
+						cvobaldo.setCvo_refid(list.get(count));
+						cvobaldo.setRef_id(0);
+						cvobaldo.setCvoflag(0);
+					//	cvobaldo.setInv_date(Long.parseLong(effdate));
+						if(map.get(cvobaldo.getCvo_refid())==0){
+							session.save(cvobaldo);	
+						}
+						++count;
+			       	}
+					
+					tx.commit();
+									
+				}catch(Exception e) {
+					try {
+						if (tx != null) tx.rollback();
+					}catch (HibernateException e1) {
+						logger.error("Transaction rollback in  com.it.erpapp.framework.managers --> MasterDataPersistenceManager --> saveAgencyCVOData is not succesful");
+					}
+					e.printStackTrace();
+					logger.error(e);
+					throw new BusinessException(e.getMessage());
+				}finally {
+					session.clear();
+					session.close();
+				}
+			}
+
+		public void deleteAdminCVOData(long itemId) throws BusinessException {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			Transaction tx = null;
+			try {
+				tx = session.beginTransaction();
+				CVODataDO cvodo = session.get(CVODataDO.class, new Long(itemId));
+				cvodo.setDeleted(1);
+				session.update(cvodo);
+				tx.commit();
+			}catch(Exception e) {
+				try {
+					if (tx != null) tx.rollback();
+				}catch (HibernateException e1) {
+					logger.error("Transaction rollback in  com.it.erpapp.framework.managers --> MasterDataPersistenceManager --> deleteAgencyCVOData is not succesful");
+				}
+				logger.error(e);
+				e.printStackTrace();
+				throw new BusinessException(e.getMessage());
+			}finally {
+				session.clear();
+				session.close();
+			}
+		}
+
 
 	/*//Staff Data
 	public List<StaffDataDO> getAgencyStaffData(long agencyId) throws BusinessException {
@@ -456,154 +610,7 @@ public class MasterDataPersistenceManager {
 		}
 	}
 
-	//CVO Data
-	public List<CVODataDO> getAgencyCVOData(long agencyId) throws BusinessException {
-		List<CVODataDO> doList = new ArrayList<>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			@SuppressWarnings("unchecked")
-			Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1 and deleted = ?2 ");
-			query.setParameter(1, agencyId);
-			query.setParameter(2, 0);
-			List<CVODataDO> result = query.getResultList(); 
-			if(result.size()>0) {
-				for (CVODataDO cvodo : result) {
-					doList.add(cvodo);
-				}
-			} 
-		}catch(Exception e) {
-			e.printStackTrace();
-			logger.error(e);
-			throw new BusinessException(e.getMessage());
-		}finally {
-			session.clear();
-			session.close();
-		}
-		return doList;
-	}
 	
-	//CVO Data
-		public List<CVODataDO> getAgencyAllCVOData(long agencyId) throws BusinessException {
-			List<CVODataDO> doList = new ArrayList<>();
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			try {
-				@SuppressWarnings("unchecked")
-				Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1");
-				query.setParameter(1, agencyId);
-				List<CVODataDO> result = query.getResultList(); 
-				if(result.size()>0) {
-					for (CVODataDO cvodo : result) {
-						doList.add(cvodo);
-					}
-				} 
-			}catch(Exception e) {
-				logger.error(e);
-				e.printStackTrace();
-				throw new BusinessException(e.getMessage());
-			}finally {
-				session.clear();
-				session.close();
-			}
-			return doList;
-		}
-
-		@SuppressWarnings("unchecked")
-		public void saveAgencyCVOData(List<CVODataDO> doList,
-				List<AgencyCVOBalanceDataDO> acvoDOList, String effdate) throws BusinessException {
-			Session session = HibernateUtil.getSessionFactory().openSession();
-			Transaction tx = null;
-			try {
-				tx = session.beginTransaction();
-	            List<Long> list = new ArrayList<>();
-	            Map<Long,Integer> map =new HashMap<>();
-	            
-				for (CVODataDO cvodo : doList) {
-					if(cvodo.getIs_gst_reg()==1){
-						String gstin = cvodo.getCvo_tin();
-						Query<CVODataDO> query = session.createQuery("from CVODataDO where created_by = ?1 and deleted = ?2 and cvo_tin="+"'"+gstin+"'");
-						query.setParameter(1, cvodo.getCreated_by());
-						query.setParameter(2, 1);
-						List<CVODataDO> result = query.getResultList(); 
-						if(result.size()>0) {
-							for (CVODataDO cvodo2 : result) {
-								if((cvodo.getCvo_tin()).equalsIgnoreCase((cvodo2.getCvo_tin()))){
-									session.clear();
-									cvodo.setId(cvodo2.getId());
-									cvodo.setDeleted(0);
-									cvodo.setCreated_date(System.currentTimeMillis());
-									session.update(cvodo);
-
-									map.put(cvodo.getId(), 1);
-		                            list.add(cvodo.getId());
-									
-								}else{
-									list.add((Long) session.save(cvodo));
-		                            map.put(cvodo.getId(), 0);
-								}
-							}
-						}else{
-							list.add((Long) session.save(cvodo));
-		                    map.put(cvodo.getId(), 0);
-						}
-					}else{
-						list.add((Long) session.save(cvodo));
-	                    map.put(cvodo.getId(), 0);
-					}
-				}
-				
-				int count=0;
-				for (AgencyCVOBalanceDataDO cvobaldo : acvoDOList) {
-					cvobaldo.setCvo_refid(list.get(count));
-					cvobaldo.setRef_id(0);
-					cvobaldo.setCvoflag(0);
-					cvobaldo.setInv_date(Long.parseLong(effdate));
-					if(map.get(cvobaldo.getCvo_refid())==0){
-						session.save(cvobaldo);	
-					}
-					++count;
-		       	}
-				
-				tx.commit();
-								
-			}catch(Exception e) {
-				try {
-					if (tx != null) tx.rollback();
-				}catch (HibernateException e1) {
-					logger.error("Transaction rollback in  com.it.erpapp.framework.managers --> MasterDataPersistenceManager --> saveAgencyCVOData is not succesful");
-				}
-				e.printStackTrace();
-				logger.error(e);
-				throw new BusinessException(e.getMessage());
-			}finally {
-				session.clear();
-				session.close();
-			}
-		}
-
-	public void deleteAgencyCVOData(long itemId) throws BusinessException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			CVODataDO cvodo = session.get(CVODataDO.class, new Long(itemId));
-			cvodo.setDeleted(1);
-			session.update(cvodo);
-			tx.commit();
-		}catch(Exception e) {
-			try {
-				if (tx != null) tx.rollback();
-			}catch (HibernateException e1) {
-				logger.error("Transaction rollback in  com.it.erpapp.framework.managers --> MasterDataPersistenceManager --> deleteAgencyCVOData is not succesful");
-			}
-			logger.error(e);
-			e.printStackTrace();
-			throw new BusinessException(e.getMessage());
-		}finally {
-			session.clear();
-			session.close();
-		}
-	}
-
 	//Expenditure Data
 	public List<ExpenditureDataDO> getAgencyExpenditureData(long agencyId) throws BusinessException {
 		List<ExpenditureDataDO> doList = new ArrayList<>();

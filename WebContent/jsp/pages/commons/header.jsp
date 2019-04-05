@@ -36,7 +36,7 @@
     		<!-- Sidebar toggle button start-->
      		<a class="sidebar-toggle stoggle headerstoggle" href="#" data-toggle="offcanvas" onclick="checkToggle()" ></a>
     		<!-- Sidebar toggle button end-->
-	    	<!-- <a class="sidebar-toggle1 hdcpur headermenu headercp" style="font-size: 15px;" href="#cylpur" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/purchases/c_purchases.jsp','5101')" title="CYLINDER PURCHASES">
+	    	 <a class="sidebar-toggle1 hdcpur headermenu headercp" style="font-size: 15px;" href="#cylpur" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/purchases/c_purchases.jsp','5101')" title="CYLINDER PURCHASES">
 	    		CP</a>
 			<a class="sidebar-toggle1 hdopur headermenu headerop" style="font-size: 15px;" href="#otrpur" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/transactions/purchases/other_purchases.jsp','5116')" title="OTHER PURCHASES">
 	    		OP</a>	    	
@@ -59,7 +59,7 @@
 			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#btrans" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/cash&bank/bank_tranxs.jsp','5521')" title="BANK TRANSACTIONS">
 				BT</a>	
 			<a class="sidebar-toggle1 headermenu" style="font-size: 15px;" href="#cvo" onclick="doAction('MasterDataControlServlet','jsp/pages/erp/masterdata/cv_data.jsp','3501')" title="CUSTOMER/VENDOR MASTER">
-				CVO</a> -->
+				CVO</a> 
 
 			<!-- Navbar Right Menu-->
 			<div class="

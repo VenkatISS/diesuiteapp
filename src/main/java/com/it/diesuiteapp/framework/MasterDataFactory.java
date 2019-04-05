@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.it.diesuiteapp.framework.bos.AgencyCVOBalanceDataBO;
+import com.it.diesuiteapp.framework.bos.CVODataBO;
 import com.it.diesuiteapp.framework.bos.UserDataBO;
 import com.it.diesuiteapp.framework.managers.MasterDataPersistenceManager;
+import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.CVODataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 import com.it.diesuiteapp.systemservices.exceptions.BusinessException;
 
@@ -22,16 +26,17 @@ public class MasterDataFactory {
 	}
 
 	public List<UserDetailsDO> saveAdminUserData(Map<String, String[]> requestParams, long adminId) throws BusinessException{
-		String[] itemTypes = requestParams.get("item");
-		String[] refNumbers = requestParams.get("refno");
-		String[] validityDates = requestParams.get("validupto");
-		String[] remindBefore = requestParams.get("reminder");
-		String[] remarks = requestParams.get("remarks");
+		String[] userid = requestParams.get("u_code");
+		String[] username = requestParams.get("u_name");
+		String[] usermobile = requestParams.get("u_mobile");
+		String[] useremail = requestParams.get("u_email");
+		String[] address = requestParams.get("u_address");
+		String[] passcode = requestParams.get("u_pwd");
 		List<UserDetailsDO> doList = new ArrayList<>();
 		UserDataBO udbo = new UserDataBO();
-		for(int i=0; i<refNumbers.length;i++){
-			doList.add(udbo.createDO(Integer.parseInt(itemTypes[i]), refNumbers[i], 
-					validityDates[i], Integer.parseInt(remindBefore[i]), remarks[i], adminId));
+		for(int i=0; i<userid.length;i++){
+			doList.add(udbo.createDO(Long.parseLong(userid[i]), username[i], 
+					passcode[i],usermobile[i], useremail[i], address[i],adminId));
 		}
 		getMasterDataPersistenceManager().saveAdminUserData(doList);
 		return getMasterDataPersistenceManager().getAdminUserData(adminId);
@@ -42,6 +47,49 @@ public class MasterDataFactory {
 		return getMasterDataPersistenceManager().getAdminUserData(adminId);
 	}
 
+	
+	//CVO Data
+		public List<CVODataDO> getAdminCVOData(long adminId) throws BusinessException {
+			return getMasterDataPersistenceManager().getAdminCVOData(adminId);
+		}
+		//CVO Data
+		public List<CVODataDO> getAdminAllCVOData(long adminId) throws BusinessException {
+			return getMasterDataPersistenceManager().getAdminAllCVOData(adminId);
+		}
+
+		public List<CVODataDO> saveAdminCVOData(Map<String, String[]> requestParams, 
+				long agencyId) throws BusinessException{
+			
+			String[] names = requestParams.get("cvo_name");
+			String[] caddrs = requestParams.get("cvo_addr");
+			String[] categorys = requestParams.get("cvo_cat");
+			String[] contacts = requestParams.get("cvo_contact");
+			String[] gstyns = requestParams.get("gstyn");
+			String[] tins = requestParams.get("cvo_tin");
+			String[] emails = requestParams.get("cvo_email");
+			String[] pans = requestParams.get("cvo_pan");
+			String[] balances = requestParams.get("cvo_ob");
+
+			List<CVODataDO> doList = new ArrayList<>();
+			CVODataBO cvobo = new CVODataBO();
+			
+			List<AgencyCVOBalanceDataDO> acvoDOList = new ArrayList<>();
+			AgencyCVOBalanceDataBO acvoBalBO = new AgencyCVOBalanceDataBO();
+			
+			for(int i=0; i<names.length; i++) {
+				doList.add(cvobo.createDO(names[i], contacts[i], caddrs[i], Integer.parseInt(gstyns[i]), tins[i], 
+						emails[i], pans[i],balances[i], Integer.parseInt(categorys[i]), agencyId));
+				
+				acvoDOList.add(acvoBalBO.createDO(balances[i], Integer.parseInt(categorys[i]), agencyId,0,"NA",0,0,"0","NA"));
+			}
+			getMasterDataPersistenceManager().saveAdminCVOData(doList, acvoDOList); 
+			return getMasterDataPersistenceManager().getAdminCVOData(agencyId);
+		}
+		
+		public List<CVODataDO> deleteAgencyCVOData(long cvoDataId,long agencyId) throws BusinessException{
+			getMasterDataPersistenceManager().deleteAdminCVOData(cvoDataId);
+			return getMasterDataPersistenceManager().getAdminCVOData(agencyId);
+		}
 	/*//Staff Data
 	public List<StaffDataDO> getAgencyStaffData(long agencyId) throws BusinessException{
 		return getMasterDataPersistenceManager().getAgencyStaffData(agencyId);
@@ -135,48 +183,7 @@ public class MasterDataFactory {
 		return getMasterDataPersistenceManager().getAgencyAllBankData(agencyId);
 	}
 	
-	//CVO Data
-	public List<CVODataDO> getAgencyCVOData(long agencyId) throws BusinessException {
-		return getMasterDataPersistenceManager().getAgencyCVOData(agencyId);
-	}
-	//CVO Data
-	public List<CVODataDO> getAgencyAllCVOData(long agencyId) throws BusinessException {
-		return getMasterDataPersistenceManager().getAgencyAllCVOData(agencyId);
-	}
-
-	public List<CVODataDO> saveAgencyCVOData(Map<String, String[]> requestParams, 
-			long agencyId, String effdate) throws BusinessException{
-		
-		String[] names = requestParams.get("cvo_name");
-		String[] caddrs = requestParams.get("cvo_addr");
-		String[] categorys = requestParams.get("cvo_cat");
-		String[] contacts = requestParams.get("cvo_contact");
-		String[] gstyns = requestParams.get("gstyn");
-		String[] tins = requestParams.get("cvo_tin");
-		String[] emails = requestParams.get("cvo_email");
-		String[] pans = requestParams.get("cvo_pan");
-		String[] balances = requestParams.get("cvo_ob");
-
-		List<CVODataDO> doList = new ArrayList<>();
-		CVODataBO cvobo = new CVODataBO();
-		
-		List<AgencyCVOBalanceDataDO> acvoDOList = new ArrayList<>();
-		AgencyCVOBalanceDataBO acvoBalBO = new AgencyCVOBalanceDataBO();
-		
-		for(int i=0; i<names.length; i++) {
-			doList.add(cvobo.createDO(names[i], contacts[i], caddrs[i], Integer.parseInt(gstyns[i]), tins[i], 
-					emails[i], pans[i],balances[i], Integer.parseInt(categorys[i]), agencyId));
-			
-			acvoDOList.add(acvoBalBO.createDO(balances[i], Integer.parseInt(categorys[i]), agencyId,0,"NA",0,0,"0","NA"));
-		}
-		getMasterDataPersistenceManager().saveAgencyCVOData(doList, acvoDOList, effdate); 
-		return getMasterDataPersistenceManager().getAgencyCVOData(agencyId);
-	}
 	
-	public List<CVODataDO> deleteAgencyCVOData(long cvoDataId,long agencyId) throws BusinessException{
-		getMasterDataPersistenceManager().deleteAgencyCVOData(cvoDataId);
-		return getMasterDataPersistenceManager().getAgencyCVOData(agencyId);
-	}
 
 	//Expenditure Data
 	public List<ExpenditureDataDO> getAgencyExpenditureData(long agencyId) throws BusinessException{

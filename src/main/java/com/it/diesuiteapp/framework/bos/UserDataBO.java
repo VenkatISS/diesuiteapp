@@ -8,16 +8,18 @@ import com.it.diesuiteapp.systemservices.exceptions.BusinessException;
 
 public class UserDataBO {
 	
-	public UserDetailsDO createDO(int itemType, String refNumber,
-			String validUPTO, int remindBefore, String remarks, long agencyId)
+	public UserDetailsDO createDO(long userid, String name,
+			String pwd, String mobile, String email,String address, long adminId)
 			throws BusinessException {
 		UserDetailsDO uData = new UserDetailsDO();
 		try {
-			uData.setUserId(itemType);
-			uData.setUserName(refNumber);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date d = sdf.parse(validUPTO);
-			uData.setCreatedBy(agencyId);
+			uData.setUserId(userid);
+			uData.setUserName(name);
+			uData.setCreatedBy(adminId);
+			uData.setUsetrMobile(mobile);
+			uData.setPassCode(pwd);
+			uData.setUserEmail(email);
+			uData.setUserAddress(address);
 			uData.setCreatedDate(System.currentTimeMillis());
 			uData.setVersion(1);
 			uData.setDeleted(0);

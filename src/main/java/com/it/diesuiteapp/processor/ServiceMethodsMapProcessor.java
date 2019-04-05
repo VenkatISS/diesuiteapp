@@ -82,14 +82,15 @@ public class ServiceMethodsMapProcessor {
 		serviceBeanNamesMap.put("3003", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3003", "deleteAdminUserData");
 		
+		serviceBeanMethodsNamesMap.put("3501", "fetchCVOData");
+		serviceBeanNamesMap.put("3502", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
+		serviceBeanMethodsNamesMap.put("3502", "saveCVOData");
+		serviceBeanNamesMap.put("3503", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
+		serviceBeanMethodsNamesMap.put("3503", "deleteCVOData");
 		serviceBeanNamesMap.put("3006", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3006", "fetchProductCatogoryData");
-		serviceBeanNamesMap.put("3501", "com.it.erpapp.appservices.MasterDataServiceBean");
-		serviceBeanMethodsNamesMap.put("3501", "fetchCVOData");
-		serviceBeanNamesMap.put("3502", "com.it.erpapp.appservices.MasterDataServiceBean");
-		serviceBeanMethodsNamesMap.put("3502", "saveCVOData");
-		serviceBeanNamesMap.put("3503", "com.it.erpapp.appservices.MasterDataServiceBean");
-		serviceBeanMethodsNamesMap.put("3503", "deleteCVOData");
+		serviceBeanNamesMap.put("3501", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
+		
 		serviceBeanNamesMap.put("3511", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3511", "fetchBankData");
 		serviceBeanNamesMap.put("3512", "com.it.erpapp.appservices.MasterDataServiceBean");

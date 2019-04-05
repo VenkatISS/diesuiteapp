@@ -18,7 +18,6 @@
     <script src="js/commons/jquery-2.1.4.min.js?<%=randomUUIDString%>"></script>
     <script type="text/javascript" src="js/home.js?<%=randomUUIDString%>"></script>
     <script type="text/javascript" src="js/commons/general_validations.js?<%=randomUUIDString%>"></script>
-	    <jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
 
 	<!-- SideNav-->
 	<jsp:include page="/jsp/pages/commons/sidenav.jsp"/>   
@@ -67,7 +66,6 @@
     	<div class="wrapper">
       		<!-- Header-->
 			<jsp:include page="/jsp/pages/commons/header.jsp"/>
-			
 				
 		 			<div id="home_div" style="">
 						<div class="row" style="background-image: url(images/bg13.jpg);">
@@ -122,8 +120,8 @@
 								</li>
 							</ul>
 				
-							<div class="row row-in white-box hmwbox" style="/* margin-left: 16%; */margin-right: 0px;padding: 0px;height: 700px;">
-								<!-- <div class="col-lg-9 col-sm-8 col-xs-12 row-in-br imgndtext">
+							<!-- <div class="row row-in white-box hmwbox" style="/* margin-left: 16%; */margin-right: 0px;padding: 0px;height: 700px;">
+								<div class="col-lg-9 col-sm-8 col-xs-12 row-in-br imgndtext">
 									<div class="dsply cih lftdsply lft" style="">
 										CASH IN HAND : &nbsp&nbsp <span id="cihand" style="font-weight:bold;"></span>
 									</div>
@@ -144,7 +142,7 @@
 										LAST DAYEND DATE:<span id="denddate"></span>
 									</div>
 								</div>
- -->
+
 								<div class = "alertsAndnews">
 									<div class="alerts_div" style="padding-bottom:10px;">
  										<p style="color:white;padding-bottom:3px;">ALERTS & NOTIFICATIONS</p>
@@ -177,7 +175,7 @@
 									<br style="clear:both;"/>
 								</div>
 							</div>
-
+ -->
 
 							<div class="tos_modal fade in" id="myAboutus" style="display: none; margin-left: -25%; height:100%;width: 156%;">
 								<div class="modal-dialog modal-lg">
@@ -268,10 +266,6 @@ If you have any questions or concerns regarding this Agreement, please contact u
 		<script src="js/commons/bootstrap.min.js?<%=randomUUIDString%>"></script>
 		<script src="js/commons/plugins/pace.min.js?<%=randomUUIDString%>"></script>
     	<script src="js/commons/main.js?<%=randomUUIDString%>"></script>
-    			<script type="text/javascript">
-    			document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>;
-    	    	</script>
-
     		</body>
 	<div id = "dialog-1" title="Alert(s)"></div>
 	<script type="text/javascript">

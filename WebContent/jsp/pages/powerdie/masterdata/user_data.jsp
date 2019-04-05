@@ -13,12 +13,12 @@
     <link rel="stylesheet" type="text/css" href="css/main.css?<%=randomUUIDString%>">
     <title>POWER DIESUITE WEB APPLICATION - USER CREATION PAGE</title>
     <jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
-	<jsp:useBean id="user_data" scope="request" class="java.lang.String"></jsp:useBean>
+	<jsp:useBean id="users_data" scope="request" class="java.lang.String"></jsp:useBean>
+	    <script src="js/commons/jquery-2.1.4.min.js?<%=randomUUIDString%>"></script>
 	
 	<script type="text/javascript">
-		var staff_data =  <%= user_data.length()>0? user_data : "[]" %>;
+		var user_data =  <%= users_data.length()>0? users_data : "[]" %>;
 	</script>
-    <script src="js/commons/jquery-2.1.4.min.js?<%=randomUUIDString%>"></script>
 
 	<!-- Sidenav -->
 	<jsp:include page="/jsp/pages/commons/sidenav.jsp"/>    
@@ -115,13 +115,13 @@
  		<div id="dialog-confirm"><div id="myDialogText" style="color:black;"></div></div>
  		
 	<script type="text/javascript" src="js/commons/general_validations.js?<%=randomUUIDString%>"></script>
-	<script type="text/javascript" src="js/modules/masterdata/staff_data.js?<%=randomUUIDString%>"></script>
+	<script type="text/javascript" src="js/modules/masterdata/user_data.js?<%=randomUUIDString%>"></script>
 	<script src="js/commons/bootstrap.min.js?<%=randomUUIDString%>"></script>
 	<script src="js/commons/plugins/pace.min.js?<%=randomUUIDString%>"></script>
     <script src="js/commons/main.js?<%=randomUUIDString%>"></script>
 	<script type="text/javascript">
 	document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>
-	document.getElementById('admin_data_form').agencyId = <%= adminDO.getAdminId() %>;
+	document.getElementById('user_data_form').adminId = <%= adminDO.getAdminId() %>;
 	
 	$(document).ready(function() {
     	/* tooltip for select */
