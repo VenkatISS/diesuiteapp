@@ -65,27 +65,27 @@
             	<li class="active mcls"><a href="#hom" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/home.jsp','2001')" class = "tabhome"><i class="fa fa-home"></i><span >HOME</span></a></li>
             	<li class="treeview mcls"><a href="#md"><i class="fa fa-dashboard"></i><span>MASTER DATA</span><i class="fa fa-angle-right"></i></a>
                 	<ul class="treeview-menu">
-                 		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/statutory_data.jsp','3001')"><i class="fa fa-table"></i><b> STATUTORY MASTER</b></a></li>
-<!--                  		<li><a href="#pcd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/product_category_data.jsp','3006')"><i class="fa fa-table"></i> PRODUCT CAT MASTER</a></li> -->
+<!--                  		<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/statutory_data.jsp','3001')"><i class="fa fa-table"></i><b> STATUTORY MASTER</b></a></li>
+ --><!--                  		<li><a href="#pcd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/product_category_data.jsp','3006')"><i class="fa fa-table"></i> PRODUCT CAT MASTER</a></li> -->
                   		<li class="treeview"><a href="#pmd"><i class="fa fa-product-hunt"></i><span>PRODUCT MASTER</span><i class="fa fa-angle-right"></i></a>
                       		<ul class="treeview-menu">
-                          		<li><a href="#eqpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/equipment_data.jsp','3101')"><i class="fa fa-circle-o"></i> EQUIPMENT MASTER</a></li>
+                          		<li><a href="#eqpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/equipment_data.jsp','3101')"><i class="fa fa-circle-o"></i> PRODUCT MASTER</a></li>
                           	<!-- 	<li><a href="#arbd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/arb_data.jsp','3111')"><i class="fa fa-circle-o"></i> BLPG/ARB/NFR MASTER</a></li> -->
-                          		<li><a href="#srvd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/services_data.jsp','3121')"><i class="fa fa-circle-o"></i> SERVICES MASTER</a></li>
+                          		<!-- <li><a href="#srvd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/services_data.jsp','3121')"><i class="fa fa-circle-o"></i> SERVICES MASTER</a></li>
                           		<li><a href="#acd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/area_code_data.jsp','3131')"><i class="fa fa-circle-o"></i> AREA CODE MASTER</a></li>
-<!--                           		<li><a href="#bmd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/bom_data.jsp','3141')"><i class="fa fa-circle-o"></i> BOM/NC PACKAGING</a></li> -->
+                          		<li><a href="#bmd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/bom_data.jsp','3141')"><i class="fa fa-circle-o"></i> BOM/NC PACKAGING</a></li> -->
 <!--                           		<li><a href="#bmd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/products/bom_data.jsp','3141')"><i class="fa fa-circle-o"></i> NC/DBC PACKAGING</a></li> -->
                       		</ul>
                   		</li>
                     	<li class="treeview"><a href="#prmd"><i class="fa fa-money"></i><span>PRICE MASTER</span><i class="fa fa-angle-right"></i></a>
-                       		<!-- <ul class="treeview-menu">
-                             	<li><a href="#rpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/prices/refill_prices_data.jsp','3201')"><i class="fa fa-circle-o"></i> REFILL PRICE</a></li>
-                             	<li><a href="#arbpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/prices/arb_prices_data.jsp','3211')"><i class="fa fa-circle-o"></i> BLPG/ARB/NFR PRICE</a></li>
-                        	</ul> -->
+                       		 <ul class="treeview-menu">
+                             	<li><a href="#rpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/prices/refill_prices_data.jsp','3201')"><i class="fa fa-circle-o"></i> PRODUCT PRICE</a></li>
+<!--                              	<li><a href="#arbpd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/prices/arb_prices_data.jsp','3211')"><i class="fa fa-circle-o"></i> BLPG/ARB/NFR PRICE</a></li>
+ -->                        	</ul>
                     	</li>
                     	<li><a href="#cvd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/cv_data.jsp','3501')"><i class="fa fa-table"></i> CUST/VEND MASTER</a></li>
-                    	<li><a href="#cdld" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/credit_limits_data.jsp','3551')"><i class="fa fa-table"></i> SET CREDIT LIMIT</a></li>                    	
-                    	<li><a href="#bd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/bank_data.jsp','3511')"><i class="fa fa-table"></i> BANK MASTER</a></li>
+<!--                     	<li><a href="#cdld" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/credit_limits_data.jsp','3551')"><i class="fa fa-table"></i> SET CREDIT LIMIT</a></li>                    	
+ -->                    	<li><a href="#bd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/bank_data.jsp','3511')"><i class="fa fa-table"></i> BANK MASTER</a></li>
 <!--                     	<li><a href="#fltd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/fleet_data.jsp','3531')"><i class="fa fa-table"></i> FLEET MASTER</a></li> -->
                     	<li><a href="#fltd" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/fleet_data.jsp','3531')"><i class="fa fa-table"></i> VEHICLES MASTER</a></li>
                     	<li class="tresat"><a href="#stat" onclick="doAction('MasterDataControlServlet','jsp/pages/powerdie/masterdata/user_data.jsp','3001')"><i class="fa fa-table"></i><b> USER MASTER</b></a></li>

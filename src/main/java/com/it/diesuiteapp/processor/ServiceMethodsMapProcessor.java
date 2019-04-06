@@ -90,25 +90,28 @@ public class ServiceMethodsMapProcessor {
 		serviceBeanNamesMap.put("3006", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3006", "fetchProductCatogoryData");
 		serviceBeanNamesMap.put("3501", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
-		
-		serviceBeanNamesMap.put("3511", "com.it.erpapp.appservices.MasterDataServiceBean");
+		//bank data
+		serviceBeanNamesMap.put("3511", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3511", "fetchBankData");
-		serviceBeanNamesMap.put("3512", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3512", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3512", "saveBankData");
-		serviceBeanNamesMap.put("3513", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3513", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3513", "deleteBankData");
+		
 		serviceBeanNamesMap.put("3521", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3521", "fetchExpenditureData");
 		serviceBeanNamesMap.put("3522", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3522", "saveExpenditureData");
 		serviceBeanNamesMap.put("3523", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3523", "deleteExpenditureData");
-		serviceBeanNamesMap.put("3531", "com.it.erpapp.appservices.MasterDataServiceBean");
+		//fleet data
+		serviceBeanNamesMap.put("3531", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3531", "fetchFleetData");
-		serviceBeanNamesMap.put("3532", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3532", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3532", "saveFleetData");
-		serviceBeanNamesMap.put("3533", "com.it.erpapp.appservices.MasterDataServiceBean");
+		serviceBeanNamesMap.put("3533", "com.it.diesuiteapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3533", "deleteFleetData");
+		
 		serviceBeanNamesMap.put("3541", "com.it.erpapp.appservices.MasterDataServiceBean");
 		serviceBeanMethodsNamesMap.put("3541", "fetchStaffData");
 		serviceBeanNamesMap.put("3542", "com.it.erpapp.appservices.MasterDataServiceBean");

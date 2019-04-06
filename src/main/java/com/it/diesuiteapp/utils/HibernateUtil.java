@@ -13,7 +13,9 @@ import com.it.diesuiteapp.framework.model.AccountActivationDO;
 import com.it.diesuiteapp.framework.model.AdminDO;
 import com.it.diesuiteapp.framework.model.AdminDetailsDO;
 import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.BankDataDO;
 import com.it.diesuiteapp.framework.model.CVODataDO;
+import com.it.diesuiteapp.framework.model.FleetDataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 
 
@@ -58,7 +60,9 @@ public class HibernateUtil {
 								.addAnnotatedClass(AccountActivationDO.class)
 								.addAnnotatedClass(UserDetailsDO.class)
 								.addAnnotatedClass(CVODataDO.class)
-								.addAnnotatedClass(AgencyCVOBalanceDataDO.class);
+								.addAnnotatedClass(AgencyCVOBalanceDataDO.class)
+								.addAnnotatedClass(BankDataDO.class)
+								.addAnnotatedClass(FleetDataDO.class);
 
 						// Create Metadata
 						Metadata metadata = sources.getMetadataBuilder().build();

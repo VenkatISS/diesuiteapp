@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.it.diesuiteapp.framework.bos.AgencyCVOBalanceDataBO;
+import com.it.diesuiteapp.framework.bos.BankDataBO;
 import com.it.diesuiteapp.framework.bos.CVODataBO;
+import com.it.diesuiteapp.framework.bos.FleetDataBO;
 import com.it.diesuiteapp.framework.bos.UserDataBO;
 import com.it.diesuiteapp.framework.managers.MasterDataPersistenceManager;
 import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.BankDataDO;
 import com.it.diesuiteapp.framework.model.CVODataDO;
+import com.it.diesuiteapp.framework.model.FleetDataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 import com.it.diesuiteapp.systemservices.exceptions.BusinessException;
 
@@ -120,7 +124,7 @@ public class MasterDataFactory {
 		getMasterDataPersistenceManager().deleteAgencyStaffData(itemId);
 		return getMasterDataPersistenceManager().getAgencyStaffData(agencyId);
 	}
-
+*/
 	//Fleet Data
 	public List<FleetDataDO> getAgencyFleetData(long agencyId) throws BusinessException{
 		return getMasterDataPersistenceManager().getAgencyFleetData(agencyId);
@@ -130,7 +134,7 @@ public class MasterDataFactory {
 		return getMasterDataPersistenceManager().getAgencyAllFleetData(agencyId);
 	}
 
-	public List<FleetDataDO> saveAgencyFleetData(Map<String, String[]> requestParams, long agencyId) throws BusinessException{
+	public List<FleetDataDO> saveAgencyFleetData(Map<String, String[]> requestParams, long adminId) throws BusinessException{
 		String[] vnos = requestParams.get("vh_no");
 		String[] vmakes = requestParams.get("vh_make");
 		String[] vtypes = requestParams.get("vh_type");
@@ -138,28 +142,29 @@ public class MasterDataFactory {
 		List<FleetDataDO> doList = new ArrayList<>();
 		FleetDataBO fdbo = new FleetDataBO();
 		for(int i=0; i<vnos.length;i++){
-			doList.add(fdbo.createDO(vnos[i], vmakes[i], Integer.parseInt(vtypes[i]), Integer.parseInt(vusages[i]), agencyId));
+			doList.add(fdbo.createDO(vnos[i], vmakes[i], Integer.parseInt(vtypes[i]), Integer.parseInt(vusages[i]), adminId));
 		}
 		getMasterDataPersistenceManager().saveAgencyFleetData(doList); 
-		return getMasterDataPersistenceManager().getAgencyFleetData(agencyId);
+		return getMasterDataPersistenceManager().getAgencyFleetData(adminId);
 	}
 
-	public List<FleetDataDO> deleteAgencyFleetData(long fleetId,long agencyId) throws BusinessException{
+	public List<FleetDataDO> deleteAgencyFleetData(long fleetId,long adminId) throws BusinessException{
 		getMasterDataPersistenceManager().deleteAgencyFleetData(fleetId);
-		return getMasterDataPersistenceManager().getAgencyFleetData(agencyId);
+		return getMasterDataPersistenceManager().getAgencyFleetData(adminId);
 	}
 
 	//Bank Data
-	public List<BankDataDO> getAgencyBankData(long agencyId) throws BusinessException{
-		return getMasterDataPersistenceManager().getAgencyBankData(agencyId);
+	public List<BankDataDO> getAgencyBankData(long adminId) throws BusinessException{
+		return getMasterDataPersistenceManager().getAgencyBankData(adminId);
 	}
 	
-	//Bank Data
-	public List<BankDataDO> getAgencyAllBankData(long agencyId) throws BusinessException{
-		return getMasterDataPersistenceManager().getAgencyAllBankData(agencyId);
+
+		//Bank Data
+	public List<BankDataDO> getAgencyAllBankData(long adminId) throws BusinessException{
+		return getMasterDataPersistenceManager().getAgencyAllBankData(adminId);
 	}
 
-	public List<BankDataDO> saveAgencyBankData(Map<String, String[]> requestParams, long agencyId) throws BusinessException{
+	public List<BankDataDO> saveAgencyBankData(Map<String, String[]> requestParams, long adminId) throws BusinessException{
 		String[] codes = requestParams.get("bank_code");
 		String[] names = requestParams.get("bank_name");
 		String[] accnos = requestParams.get("bank_accno");
@@ -172,10 +177,10 @@ public class MasterDataFactory {
 		List<BankDataDO> doList = new ArrayList<>();
 		BankDataBO bdbo = new BankDataBO();
 		for(int i=0; i<codes.length; i++) {
-			doList.add(bdbo.createDO(codes[i], names[i], accnos[i], branches[i], ifsccodes[i], balances[i], addresses[i], dlBal[i], agencyId));
+			doList.add(bdbo.createDO(codes[i], names[i], accnos[i], branches[i], ifsccodes[i], balances[i], addresses[i], dlBal[i], adminId));
 		}
 		getMasterDataPersistenceManager().saveAgencyBankData(doList);
-		return getMasterDataPersistenceManager().getAgencyAllBankData(agencyId);
+		return getMasterDataPersistenceManager().getAgencyAllBankData(adminId);
 	}
 
 	public List<BankDataDO> deleteAgencyBankData(long bankDataId,long agencyId) throws BusinessException{
@@ -185,7 +190,7 @@ public class MasterDataFactory {
 	
 	
 
-	//Expenditure Data
+/*	//Expenditure Data
 	public List<ExpenditureDataDO> getAgencyExpenditureData(long agencyId) throws BusinessException{
 		return getMasterDataPersistenceManager().getAgencyExpenditureData(agencyId);
 	}

@@ -13,7 +13,9 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.it.diesuiteapp.framework.model.AgencyCVOBalanceDataDO;
+import com.it.diesuiteapp.framework.model.BankDataDO;
 import com.it.diesuiteapp.framework.model.CVODataDO;
+import com.it.diesuiteapp.framework.model.FleetDataDO;
 import com.it.diesuiteapp.framework.model.UserDetailsDO;
 import com.it.diesuiteapp.systemservices.exceptions.BusinessException;
 import com.it.diesuiteapp.utils.HibernateUtil;
@@ -367,7 +369,7 @@ public class MasterDataPersistenceManager {
 			session.close();
 		}
 	}
-
+*/
 	//Fleet Data
 	public List<FleetDataDO> getAgencyFleetData(long agencyId) throws BusinessException {
 		List<FleetDataDO> doList = new ArrayList<>();
@@ -394,13 +396,13 @@ public class MasterDataPersistenceManager {
 		return doList;
 	}
 	//Fleet Data
-		public List<FleetDataDO> getAgencyAllFleetData(long agencyId) throws BusinessException {
+		public List<FleetDataDO> getAgencyAllFleetData(long adminId) throws BusinessException {
 			List<FleetDataDO> doList = new ArrayList<>();
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			try {
 				@SuppressWarnings("unchecked")
 				Query<FleetDataDO> query = session.createQuery("from FleetDataDO where created_by = ?1 and (deleted = ?2  or deleted = ?3)");
-				query.setParameter(1, agencyId);
+				query.setParameter(1, adminId);
 				query.setParameter(2, 0);
 				query.setParameter(3, 1);
 				List<FleetDataDO> result = query.getResultList(); 
@@ -514,7 +516,8 @@ public class MasterDataPersistenceManager {
 		}
 		return doList;
 	}
-	
+
+		
 	//Bank Data
 		public List<BankDataDO> getAgencyAllBankData(long agencyId) throws BusinessException {
 			List<BankDataDO> doList = new ArrayList<>();
@@ -610,7 +613,7 @@ public class MasterDataPersistenceManager {
 		}
 	}
 
-	
+	/*
 	//Expenditure Data
 	public List<ExpenditureDataDO> getAgencyExpenditureData(long agencyId) throws BusinessException {
 		List<ExpenditureDataDO> doList = new ArrayList<>();

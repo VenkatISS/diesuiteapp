@@ -369,37 +369,37 @@ public class MasterDataServiceBean {
 
 		}		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
-
+*/
 	//Fleet Data Methods
 	public void fetchFleetData(HttpServletRequest request,
 			HttpServletResponse response){
 		MessageObject msgObj = new MessageObject(3531, "FETCH FLEET DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
 			
-			agencyId = ((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code();
+			adminId = ((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId();
 
 			logger.info(ApplicationConstants.LogMessageKeys.FETCHFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
 
 			MasterDataFactory mdf = new MasterDataFactory();
 			request.setAttribute("fleet_data", (new Gson().toJson(
-					mdf.getAgencyFleetData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));
+					mdf.getAgencyFleetData(((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId()))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			logger.info(ApplicationConstants.LogMessageKeys.FETCHFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
+					adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
 
 		}catch(BusinessException be) {
 			msgObj.setMessageText(be.getExceptionMessage());
 			
 			logger.info(ApplicationConstants.LogMessageKeys.FETCHFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
+					adminId,be);
 	
 		}		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
@@ -408,29 +408,29 @@ public class MasterDataServiceBean {
 		
 		MessageObject msgObj = new MessageObject(3532, "SAVE FLEET DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
+			adminId = Long.parseLong(request.getParameter("adminId"));
 			
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
 
 			Map<String, String[]> requestParams = request.getParameterMap();
 			MasterDataFactory mdf = new MasterDataFactory();
-			request.setAttribute("fleet_data", (new Gson().toJson(mdf.saveAgencyFleetData(requestParams, agencyId))));
+			request.setAttribute("fleet_data", (new Gson().toJson(mdf.saveAgencyFleetData(requestParams, adminId))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
+					adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
 
 		}catch(BusinessException be){
 			msgObj.setMessageText(be.getExceptionMessage());
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
+					adminId,be);
 
 		}		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
@@ -440,37 +440,37 @@ public class MasterDataServiceBean {
 		MessageObject msgObj = new MessageObject(3533, "DELETE FLEET DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
 			
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
+			adminId = Long.parseLong(request.getParameter("agencyId"));
 			fleetDataId = Long.parseLong(request.getParameter("fleetDataId"));
 			
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.FLEETDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
-					agencyId,fleetDataId);
+					adminId,fleetDataId);
 
 			
 			MasterDataFactory mdf = new MasterDataFactory();
-			request.setAttribute("fleet_data", (new Gson().toJson(mdf.deleteAgencyFleetData(fleetDataId,agencyId))));
+			request.setAttribute("fleet_data", (new Gson().toJson(mdf.deleteAgencyFleetData(fleetDataId,adminId))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.FLEETDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
 					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.STATUS.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,fleetDataId,
+					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,fleetDataId,
 					ApplicationConstants.SUCCESS_STATUS_STRING);
 
 		}catch(BusinessException be){
 			msgObj.setMessageText(be.getExceptionMessage());
 			
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEFLEETDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.FLEETDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
 					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,fleetDataId,be);
+					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,fleetDataId,be);
 
 		}
 		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
@@ -478,36 +478,37 @@ public class MasterDataServiceBean {
 
 	
 
-	//Bank Data Methods
+	
+		//Bank Data Methods
 	public void fetchBankData(HttpServletRequest request,
 			HttpServletResponse response){
 		MessageObject msgObj = new MessageObject(3511, "FETCH BANK DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
 			
-			 agencyId = ((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code();
+			 adminId = ((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId();
 
 				logger.info(ApplicationConstants.LogMessageKeys.FETCHBANKDATA.getValue()
-						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
+						+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+	    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
 
 			MasterDataFactory mdf = new MasterDataFactory();
 			request.setAttribute("bank_data", (new Gson().toJson(
-					mdf.getAgencyAllBankData(((AgencyVO)request.getSession().getAttribute("agencyVO")).getAgency_code()))));
+					mdf.getAgencyAllBankData(((AdminDO)request.getSession().getAttribute("adminDO")).getAdminId()))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			logger.info(ApplicationConstants.LogMessageKeys.FETCHBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
+					adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
 
 		}catch(BusinessException be) {
 			msgObj.setMessageText(be.getExceptionMessage());
 			
 			logger.info(ApplicationConstants.LogMessageKeys.FETCHBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
+					adminId,be);
 
 		}	request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
@@ -516,31 +517,31 @@ public class MasterDataServiceBean {
 		
 		MessageObject msgObj = new MessageObject(3512, "SAVE BANK DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
+			adminId = Long.parseLong(request.getParameter("agencyId"));
 			
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
-    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId);
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
+    				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId);
 
 			Map<String, String[]> requestParams = request.getParameterMap();
 			MasterDataFactory mdf = new MasterDataFactory();
-			request.setAttribute("bank_data", (new Gson().toJson(mdf.saveAgencyBankData(requestParams, agencyId))));
+			request.setAttribute("bank_data", (new Gson().toJson(mdf.saveAgencyBankData(requestParams, adminId))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.STATUS.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,ApplicationConstants.SUCCESS_STATUS_STRING);
+					adminId,ApplicationConstants.SUCCESS_STATUS_STRING);
 
 		}catch(BusinessException be){
 			msgObj.setMessageText(be.getExceptionMessage());
 			
 			logger.info(ApplicationConstants.LogMessageKeys.SAVEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),  
-					agencyId,be);
+					adminId,be);
 
 		}request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
@@ -549,40 +550,40 @@ public class MasterDataServiceBean {
 		
 		MessageObject msgObj = new MessageObject(3513, "DELETE BANK DATA", ApplicationConstants.ERROR_STATUS_STRING);
 		try {
-			agencyId = Long.parseLong(request.getParameter("agencyId"));
+			adminId = Long.parseLong(request.getParameter("agencyId"));
 			bankDataId = Long.parseLong(request.getParameter("dataId"));
 			
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue() +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.BANKDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),
-					agencyId,bankDataId);
+					adminId,bankDataId);
 
 			MasterDataFactory mdf = new MasterDataFactory();
-			request.setAttribute("bank_data", (new Gson().toJson(mdf.deleteAgencyBankData(bankDataId,agencyId))));
+			request.setAttribute("bank_data", (new Gson().toJson(mdf.deleteAgencyBankData(bankDataId,adminId))));
 			msgObj.setMessageStatus(ApplicationConstants.SUCCESS_STATUS_STRING);
 			
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.BANKDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
 					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.STATUS.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,bankDataId,
+					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,bankDataId,
 					ApplicationConstants.SUCCESS_STATUS_STRING);
 		}catch(BusinessException be){
 			msgObj.setMessageText(be.getExceptionMessage());
 			logger.info(ApplicationConstants.LogMessageKeys.DELETEBANKDATA.getValue()
-					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.AGENCYID.getValue()
+					+ ApplicationConstants.paramKeys.PARAM.getValue()+ApplicationConstants.paramKeys.ADMINID.getValue()
     				+ ApplicationConstants.LogKeys.LOG_PARAM.getValue()  +ApplicationConstants.paramKeys.SEPERATOR.getValue()
 					+ApplicationConstants.paramKeys.BANKDATAID.toString()+ApplicationConstants.LogKeys.LOG_PARAM.getValue()
 					+ApplicationConstants.paramKeys.SEPERATOR.getValue()+ApplicationConstants.actionStatusKeys.BUSINESSEXCEPTION.toString()
-					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),agencyId,bankDataId,be);
+					+ApplicationConstants.LogKeys.LOG_PARAM.getValue(),adminId,bankDataId,be);
 
 		}
 		request.setAttribute(ApplicationConstants.MESSAGE_OBJECT_ATTRIBUTE_STRING, msgObj);
 	}
 
-	//Expenditure Data Methods
+/*	//Expenditure Data Methods
 	public void fetchExpenditureData(HttpServletRequest request,
 			HttpServletResponse response) {
 		MessageObject msgObj = new MessageObject(3521, "FETCH EXPENDITURE DATA", ApplicationConstants.ERROR_STATUS_STRING);

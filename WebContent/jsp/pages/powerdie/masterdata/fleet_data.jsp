@@ -12,7 +12,7 @@
     <!-- CSS-->
     <link rel="stylesheet" type="text/css" href="css/main.css?<%=randomUUIDString%>">
     <title>LPG DEALER ERP WEB APPLICATION - VEHICLES MASTER PAGE</title>
-    <jsp:useBean id="agencyVO" scope="session" class="com.it.diesuiteapp.framework.model.vos.AgencyVO"></jsp:useBean>
+    <jsp:useBean id="adminDO" scope="session" class="com.it.diesuiteapp.framework.model.AdminDO"></jsp:useBean>
 	<jsp:useBean id="fleet_data" scope="request" class="java.lang.String"></jsp:useBean>
     <script src="js/commons/jquery-2.1.4.min.js?<%=randomUUIDString%>"></script>
 <%-- 	<script src="js/commons/checkBrowser.js?<%=randomUUIDString%>"></script>     --%>
@@ -55,8 +55,8 @@
             			<div class="main_table">
               				<div class="table-responsive">
                 				<form id="fleet_data_form" name="" method="post" action="MasterDataControlServlet">
-									<input type="hidden" id="agencyId" name="agencyId" value="<%= agencyVO.getAgency_code() %>">
-									<input type="hidden" id="page" name="page" value="jsp/pages/erp/masterdata/fleet_data.jsp">
+									<input type="hidden" id="adminId" name="adminId" value="<%= adminDO.getAdminId()%>">
+									<input type="hidden" id="page" name="page" value="jsp/pages/powerdie/masterdata/fleet_data.jsp">
 									<input type="hidden" id="actionId" name="actionId" value="3532">
 									<input type="hidden" id="fleetDataId" name="fleetDataId" value="">
                 					<table class="table" id="fleet_add_table">
@@ -120,8 +120,8 @@
     <script src="js/commons/main.js?<%=randomUUIDString%>"></script>
 
     <script  type="text/javascript">
-	    document.getElementById("nameSpan").innerHTML = <%= agencyVO.getAgency_code() %>
-	    document.getElementById('fleet_data_form').agencyId = <%= agencyVO.getAgency_code() %>;
+	    document.getElementById("nameSpan").innerHTML = <%= adminDO.getAdminId() %>;
+	    document.getElementById('fleet_data_form').agencyId = <%= adminDO.getAdminId() %>;
 	    
 		$(document).ready(function() {
 	    	/* tooltip for select */
